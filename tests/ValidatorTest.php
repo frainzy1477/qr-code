@@ -12,14 +12,11 @@ final class ValidatorTest extends TestCase
 {
     /**
      * @testdox Can write $name and successfully validate result
+     *
      * @dataProvider dataProvider
      */
     public function testReadability(string $name, string $data): void
     {
-        if (PHP_VERSION_ID >= 80000) {
-            $this->expectException(\Exception::class);
-        }
-
         $result = Builder::create()
             ->data($data)
             ->validateResult(true)
@@ -30,7 +27,7 @@ final class ValidatorTest extends TestCase
         $this->assertEquals('image/png', $result->getMimeType());
     }
 
-    public function dataProvider(): iterable
+    public static function dataProvider(): iterable
     {
         yield ['small data', 'Tiny'];
         yield ['data containing spaces', 'This one has spaces'];
